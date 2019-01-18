@@ -1,95 +1,141 @@
-//~ function getXDateGrid(minX,maxX,toDomXCoord){
-  //~ let diffX = maxX-minX;
-  //~ let ret = {prefix:"Time",dates:[],domXs:[]};
-  //~ if ( diffX<=                       1000) {
-    //~ return ret;
-  //~ }
-  //~ if ( diffX>       100*365*24*60*60*1000) {
-    //~ return ret;
-  //~ }
-  //~ let interval = null;
-  //~ let prefixFormat = null;
-  //~ let displayFormat = null;
-  //~ if ( diffX<                     60*1000) {
-    //~ prefixFormat = "MMM,DD,YYYY";
-    //~ displayFormat = "HH/mm/ss.SSS";
-    //~ interval = 1000;
-  //~ }
-  //~ else if ( diffX<=            60*60*1000) {
-    //~ prefixFormat = "MMM,DD,YYYY";
-    //~ displayFormat = "HH/mm/ss.SSS";
-    //~ interval=60*1000;
-  //~ }
-  //~ else if ( diffX<=         24*60*60*1000) {
-    //~ prefixFormat = "MMM,DD,YYYY";
-    //~ displayFormat = "HH/mm/ss";
-    //~ interval=60*60*1000;
-  //~ }
-  //~ else if ( diffX<=      30*24*60*60*1000) {
-    //~ prefixFormat = "MMM,YYYY";
-    //~ displayFormat = "DD HH/mm";
-    //~ interval=24*60*60*1000;
-  //~ }
-  //~ else if ( diffX<=     365*24*60*60*1000) {
-    //~ prefixFormat = "MMM,YYYY";
-    //~ displayFormat = "DD HH/mm";
-    //~ interval="month";
-  //~ }
-  //~ else if ( diffX<= 10*365*24*60*60*1000) {
-    //~ prefixFormat = "MMM,YYYY";
-    //~ displayFormat = "MMM,DD,YYYY HH/mm";
-    //~ interval="year";
-  //~ }
-  //~ else if ( diffX<=100*365*24*60*60*1000) {
-    //~ prefixFormat = "MMM,YYYY";
-    //~ displayFormat = "DD HH/mm";
-    //~ interval="10year";
-  //~ }
-  //~ else {
-    //~ return ret;
-  //~ }
+import {format} from "date-fns";
 
-  //~ if (interval !== "month" && interval !== "year" && interval !== "10year") {
-    //~ for (let i=minX-minX%interval; i<maxX+interval; i+=interval) {
-      //~ ret["dates"].push(format(new Date(i),"HH/mm/ss"));
-      //~ ret["domXs"].push(toDomXCoord(i));
-    //~ }
-    //~ ret["prefix"] = new Date(minX),"MMM,DD,YYYY";
-    //~ return ret;
-  //~ }
-  //~ if (interval === "month") {
-    //~ let i=new Date(minX-min%(24*60*60*1000));
-    //~ ret["prefix"] = format(new Date(minX),"YYYY");
-    //~ while (true) {
-      //~ ret["dates"].push(format(i,""));
-      //~ ret["domXs"].push(toDomXCoord(i.valueOf()));
-      //~ let m = i.getMonth();
-      //~ let y = i.getFullYear();
-      //~ i.setMonth(m%12)
-      //~ i.setFullYear(y+Math.floor(m/12));
-    //~ }
-    //~ return ret;
-  //~ }
-  //~ if (interval === "year") {
-    //~ let i=new Date(minX-min%(24*60*60*1000));
-    //~ i.setMonth(0);
-    //~ while (true) {
-      //~ ret["dates"].push(format(i,""));
-      //~ ret["domXs"].push(toDomXCoord(i.valueOf()));
-      //~ let y = i.getFullYear();
-      //~ i.setFullYear(y+1);
-    //~ }
-    //~ return ret;
-  //~ }
-  //~ if (interval === "10year") {
-    //~ let i=new Date(minX-min%(24*60*60*1000));
-    //~ i.setMonth(0);
-    //~ while (true) {
-      //~ ret["dates"].push(format(i,""));
-      //~ ret["domXs"].push(toDomXCoord(i.valueOf()));
-      //~ let y = i.getFullYear();
-      //~ i.setFullYear(y+10);
-    //~ }
-    //~ return ret;
-  //~ }
-//~ }
+export function drawXAxisGridLabels(canvas,gridX,gridXLabels,toDomXCoord){
+  let ctx = canvas.getContext("2d");
+  for (let i=0; i<gridX.length; i++) {
+    let label = gridXLabels[i];
+    let domX = toDomXCoord(gridX[i]);
+    ctx.fillText(label,domX,10);
+  }
+}
+
+export function generateXAxisDateGrid(minX,maxX) {
+  let ret = {gridX:[],gridXLabels:[]};
+  let yearGrids = generateXAxisYearGrid(minX,maxX);
+  ret["gridX"]=yearGrids["gridX"];
+  ret["gridXLabels"]=yearGrids["gridLabels"];
+  if (ret["gridX"].length>=3) {
+    return ret;
+  }
+  let monthGrids = generateXAxisMonthGrid(minX,maxX);
+  ret["gridX"]=monthGrids["gridX"];
+  ret["gridXLabels"]=monthGrids["gridLabels"];
+  if (ret["gridX"].length>=3) {
+    return ret;
+  }
+  let dayGrid = generateXAxisDayGrid(minX,maxX);
+  ret["gridX"]=dayGrid["gridX"];
+  ret["gridXLabels"]=dayGrid["gridLabels"];
+  if (ret["gridX"].length>=3) {
+    return ret;
+  }
+  let hourGrid = generateXAxisHourGrid(minX,maxX);
+  ret["gridX"]=hourGrid["gridX"];
+  ret["gridXLabels"]=hourGrid["gridLabels"];
+  if (ret["gridX"].length>=3) {
+    return ret;
+  }
+  let minuteGrid = generateXAxisMinuteGrid(minX,maxX);
+  ret["gridX"]=minuteGrid["gridX"];
+  ret["gridXLabels"]=minuteGrid["gridLabels"];
+  if (ret["gridX"].length>=3) {
+    return ret;
+  }
+  let secondGrid = generateXAxisSecondGrid(minX,maxX);
+  ret["gridX"]=secondGrid["gridX"];
+  ret["gridXLabels"]=secondGrid["gridLabels"];
+  if (ret["gridX"].length>=3) {
+    return ret;
+  }
+  return ret;
+}
+
+
+function generateXAxisYearGrid(minX,maxX) {
+  let ret = {gridX:[],gridLabels:[]};
+  let t = new Date(minX-minX%24*60*60*1000);
+  t.setDate(0);
+  t.setMonth(0);
+  let y = t.getFullYear()
+  while (t.valueOf() < maxX) {
+    if (t.valueOf() >= minX) {
+      ret["gridX"].push(t.valueOf());
+      ret["gridLabels"].push(t.getFullYear());
+    }
+    y+=1;
+    t.setFullYear(y);
+  }
+  return ret;
+}
+
+function generateXAxisMonthGrid(minX,maxX) {
+  let ret = {gridX:[],gridLabels:[]};
+  let t = new Date(minX-minX%24*60*60*1000);
+  t.setDate(0);
+  let m=t.getMonth();
+  let y=t.getFullYear();
+  while (t.valueOf() < maxX) {
+    if (t.valueOf() >= minX) {
+      ret["gridX"].push(t.valueOf());
+      ret["gridLabels"].push(format("MMM,YYYY"));
+    }
+    y=Math.floor((m+1)/12)+y;
+    m=(m+1)%12;
+    t.setMonth(m);
+    t.setFullYear(y);
+  }
+  return ret;
+}
+
+function generateXAxisDayGrid(minX,maxX) {
+  let ret = {gridX:[],gridLabels:[]};
+  let interval = 24*60*60*1000;
+  let t = minX-minX%interval;
+  while (t < maxX) {
+    if (t >= minX) {
+      ret["gridX"].push(t);
+      ret["gridLabels"].push(format(new Date(t),"MMM,DD,YYYY"));
+    }
+    t+=interval;
+  }
+  return ret;
+}
+
+function generateXAxisHourGrid(minX,maxX) {
+  let ret = {gridX:[],gridLabels:[]};
+  let t = minX-minX%60*60*1000;
+  while (t < maxX) {
+    if (t >= minX) {
+      ret["gridX"].push(t);
+      ret["gridLabels"].push(format(new Date(t),"MMM,DD,YYYY HH"));
+    }
+    t+=60*60*1000;
+  }
+  return ret;
+}
+
+function generateXAxisMinuteGrid(minX,maxX) {
+  let ret = {gridX:[],gridLabels:[]};
+  let t = minX-minX%60*1000;
+  while (t < maxX) {
+    if (t>= minX) {
+      ret["gridX"].push(t);
+      ret["gridLabels"].push(format(new Date(t),"MMM,DD,YYYY HH:mm"));
+    }
+    t+=60*1000;
+  }
+  return ret;
+}
+
+function generateXAxisSecondGrid(minX,maxX) {
+  let ret = {gridX:[],gridLabels:[]};
+  let t = minX-minX%1000;
+  while (t < maxX) {
+    if (t >= minX) {
+      ret["gridX"].push(t);
+      ret["gridLabels"].push(format(new Date(t),"MMM,DD,YYYY HH:mm:ss"));
+    }
+    t+=1000;
+  }
+  return ret;
+}
