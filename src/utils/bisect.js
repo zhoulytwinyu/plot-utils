@@ -1,4 +1,4 @@
-function bisect_left(sorted,target) {
+export function bisect_left(sorted,target) {
   let l = 0;
   let r = sorted.length-1;
   let m = null;
@@ -14,7 +14,7 @@ function bisect_left(sorted,target) {
   return r;
 }
 
-function bisect_right(sorted,target) {
+export function bisect_right(sorted,target) {
   let l = 0;
   let r = sorted.length-1;
   let m = null;

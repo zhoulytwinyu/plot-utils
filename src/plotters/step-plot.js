@@ -1,3 +1,5 @@
+import {applyStyles} from "../utils/canvas-utils";
+
 export function stepLinePlot_single(ctx,domX,domY,style){
   ctx.save()
   applyStyles(ctx,style);
