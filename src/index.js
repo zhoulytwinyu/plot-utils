@@ -2,9 +2,10 @@ import {filterData,
         convertDataToDomCoord} from "./utils/data-utils";
 
 import {getLinearXCoordinateConverter,
-        getLinearYCoordinateConverter,
-        stepLinePlot_single,
-        stepFillPlot_single} from "./coord-system/linear-coord";
+        getLinearYCoordinateConverter} from "./coord-system/linear-coord";
+
+import {stepLinePlot_single,
+        stepFillPlot_single} from "./plotters/step-plot";
 
 import {drawAxisBorder,
         drawXAxisOrigin,
