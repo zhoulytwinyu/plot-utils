@@ -1,0 +1,11 @@
+{
+  "name": "functional-plotter",
+  "version": "0.0.0",
+  "description": "Assorted plotting functions and utils designed to work in React framework.",
+  "main": "index.js",
+  "author": "Lingyu Zhou (zhoulytwin@gmail.com)",
+  "license": "GPLV3",
+  "dependencies": {
+    "date-fns": "^1.30.1"
+  }
+}
