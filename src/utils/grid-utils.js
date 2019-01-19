@@ -23,9 +23,21 @@ export function generateXAxisDateGrid(minX,maxX) {
   if (ret["gridX"].length>=3) {
     return ret;
   }
+  let tenDayGrid = generateXAxisDayGrid(minX,maxX,10);
+  ret["gridX"]=tenDayGrid["gridX"];
+  ret["gridXLabels"]=tenDayGrid["gridLabels"];
+  if (ret["gridX"].length>=3) {
+    return ret;
+  }
   let dayGrid = generateXAxisDayGrid(minX,maxX);
   ret["gridX"]=dayGrid["gridX"];
   ret["gridXLabels"]=dayGrid["gridLabels"];
+  if (ret["gridX"].length>=3) {
+    return ret;
+  }
+  let sixHourGrid = generateXAxisHourGrid(minX,maxX,6);
+  ret["gridX"]=sixHourGrid["gridX"];
+  ret["gridXLabels"]=sixHourGrid["gridLabels"];
   if (ret["gridX"].length>=3) {
     return ret;
   }
@@ -35,9 +47,21 @@ export function generateXAxisDateGrid(minX,maxX) {
   if (ret["gridX"].length>=3) {
     return ret;
   }
+  let tenMinuteGrid = generateXAxisMinuteGrid(minX,maxX,10);
+  ret["gridX"]=tenMinuteGrid["gridX"];
+  ret["gridXLabels"]=tenMinuteGrid["gridLabels"];
+  if (ret["gridX"].length>=3) {
+    return ret;
+  }
   let minuteGrid = generateXAxisMinuteGrid(minX,maxX);
   ret["gridX"]=minuteGrid["gridX"];
   ret["gridXLabels"]=minuteGrid["gridLabels"];
+  if (ret["gridX"].length>=3) {
+    return ret;
+  }
+  let tenSecondGrid = generateXAxisSecondGrid(minX,maxX,10);
+  ret["gridX"]=tenSecondGrid["gridX"];
+  ret["gridXLabels"]=tenSecondGrid["gridLabels"];
   if (ret["gridX"].length>=3) {
     return ret;
   }
@@ -77,7 +101,7 @@ function generateXAxisMonthGrid(minX,maxX) {
   while (t.valueOf() < maxX) {
     if (t.valueOf() >= minX) {
       ret["gridX"].push(t.valueOf());
-      ret["gridLabels"].push(format("MMM,YYYY"));
+      ret["gridLabels"].push(format(t,"MMM,YYYY"));
     }
     y=Math.floor((m+1)/12)+y;
     m=(m+1)%12;
@@ -87,9 +111,9 @@ function generateXAxisMonthGrid(minX,maxX) {
   return ret;
 }
 
-function generateXAxisDayGrid(minX,maxX) {
+function generateXAxisDayGrid(minX,maxX,n=1) {
   let ret = {gridX:[],gridLabels:[]};
-  let interval = 24*60*60*1000;
+  let interval = 24*60*60*1000*n;
   let t = minX-minX%interval;
   while (t < maxX) {
     if (t >= minX) {
@@ -101,41 +125,44 @@ function generateXAxisDayGrid(minX,maxX) {
   return ret;
 }
 
-function generateXAxisHourGrid(minX,maxX) {
+function generateXAxisHourGrid(minX,maxX,n=1) {
   let ret = {gridX:[],gridLabels:[]};
-  let t = minX-minX%60*60*1000;
+  let interval = 60*60*1000*n;
+  let t = minX-minX%interval;
   while (t < maxX) {
     if (t >= minX) {
       ret["gridX"].push(t);
       ret["gridLabels"].push(format(new Date(t),"MMM,DD,YYYY HH"));
     }
-    t+=60*60*1000;
+    t+=interval;
   }
   return ret;
 }
 
-function generateXAxisMinuteGrid(minX,maxX) {
+function generateXAxisMinuteGrid(minX,maxX,n=1) {
   let ret = {gridX:[],gridLabels:[]};
-  let t = minX-minX%60*1000;
+  let interval = 60*1000*n;
+  let t = minX-minX%interval;
   while (t < maxX) {
     if (t>= minX) {
       ret["gridX"].push(t);
       ret["gridLabels"].push(format(new Date(t),"MMM,DD,YYYY HH:mm"));
     }
-    t+=60*1000;
+    t+=interval;
   }
   return ret;
 }
 
-function generateXAxisSecondGrid(minX,maxX) {
+function generateXAxisSecondGrid(minX,maxX,n=1) {
   let ret = {gridX:[],gridLabels:[]};
-  let t = minX-minX%1000;
+  let interval = 1000*n;
+  let t = minX-minX%interval;
   while (t < maxX) {
     if (t >= minX) {
       ret["gridX"].push(t);
       ret["gridLabels"].push(format(new Date(t),"MMM,DD,YYYY HH:mm:ss"));
     }
-    t+=1000;
+    t+=interval;
   }
   return ret;
 }
