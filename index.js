@@ -12,7 +12,9 @@ import {drawAxisBorder,
         drawYAxisOrigin} from "./src/utils/canvas-utils";
 
 import {drawXAxisGridLabels,
-        generateXAxisDateGrid} from "./src/utils/grid-utils";
+        drawYAxisGridLabels,
+        generateAxisGrid,
+        generateAxisDateGrid} from "./src/grids";
 
 export {filterData, convertDataToDomCoord,
         getLinearXCoordinateConverter,
@@ -23,4 +25,6 @@ export {filterData, convertDataToDomCoord,
         drawXAxisOrigin,
         drawYAxisOrigin,
         drawXAxisGridLabels,
-        generateXAxisDateGrid}
+        drawYAxisGridLabels,
+        generateAxisGrid,
+        generateAxisDateGrid}

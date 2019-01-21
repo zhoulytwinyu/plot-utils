@@ -1,120 +1,129 @@
 import {format} from "date-fns";
 
+
+
 export function drawXAxisGridLabels(canvas,gridX,gridXLabels,toDomXCoord){
   let ctx = canvas.getContext("2d");
+  ctx.save();
+  ctx.textAlign="center";
   for (let i=0; i<gridX.length; i++) {
     let label = gridXLabels[i];
     let domX = toDomXCoord(gridX[i]);
-    ctx.fillText(label,domX,10);
+    ctx.beginPath();
+    ctx.moveTo(domX,0);
+    ctx.lineTo(domX,5);
+    ctx.stroke();
+    ctx.fillText(label,domX,20);
   }
+  ctx.restore();
 }
 
-export function generateXAxisDateGrid(minX,maxX) {
+export function generateAxisDateGrid(minX,maxX) {
   let ret = {gridX:[],gridXLabels:[]};
   if (maxX - minX > 10000*365*24*60*60*1000){
     return {gridX:[],gridXLabels:[]};
   }
   if (maxX - minX > 5000*365*24*60*60*1000){
-    return generateXAxisYearGrid(minX,maxX,2000);
+    return generateAxisYearGrid(minX,maxX,2000);
   }
   if (maxX - minX > 2500*365*24*60*60*1000){
-    return generateXAxisYearGrid(minX,maxX,1000);
+    return generateAxisYearGrid(minX,maxX,1000);
   }
   if (maxX - minX > 1000*365*24*60*60*1000){
-    return generateXAxisYearGrid(minX,maxX,500);
+    return generateAxisYearGrid(minX,maxX,500);
   }
   if (maxX - minX > 500*365*24*60*60*1000){
-    return generateXAxisYearGrid(minX,maxX,200);
+    return generateAxisYearGrid(minX,maxX,200);
   }
   if (maxX - minX > 250*365*24*60*60*1000){
-    return generateXAxisYearGrid(minX,maxX,100);
+    return generateAxisYearGrid(minX,maxX,100);
   }
   if (maxX - minX > 100*365*24*60*60*1000){
-    return generateXAxisYearGrid(minX,maxX,50);
+    return generateAxisYearGrid(minX,maxX,50);
   }
   if (maxX - minX > 50*365*24*60*60*1000){
-    return generateXAxisYearGrid(minX,maxX,20);
+    return generateAxisYearGrid(minX,maxX,20);
   }
   if (maxX - minX > 25*365*24*60*60*1000){
-    return generateXAxisYearGrid(minX,maxX,10);
+    return generateAxisYearGrid(minX,maxX,10);
   }
   if (maxX - minX > 10*365*24*60*60*1000){
-    return generateXAxisYearGrid(minX,maxX,5);
+    return generateAxisYearGrid(minX,maxX,5);
   }
   if (maxX - minX > 5*365*24*60*60*1000){
-    return generateXAxisYearGrid(minX,maxX,2);
+    return generateAxisYearGrid(minX,maxX,2);
   }
   if (maxX - minX > 2.5*365*24*60*60*1000){
-    return generateXAxisYearGrid(minX,maxX,1);
+    return generateAxisYearGrid(minX,maxX,1);
   }
   if (maxX - minX > 365*24*60*60*1000){
-    return generateXAxisMonthGrid(minX,maxX,6);
+    return generateAxisMonthGrid(minX,maxX,6);
   }
   if (maxX - minX > 180*24*60*60*1000){
-    return generateXAxisMonthGrid(minX,maxX,2);
+    return generateAxisMonthGrid(minX,maxX,2);
   }
   if (maxX - minX > 60*24*60*60*1000){
-    return generateXAxisMonthGrid(minX,maxX,1);
+    return generateAxisMonthGrid(minX,maxX,1);
   }
   if (maxX - minX > 30*24*60*60*1000){
-    return generateXAxisDayGrid(minX,maxX,10);
+    return generateAxisDayGrid(minX,maxX,10);
   }
   if (maxX - minX > 10*24*60*60*1000){
-    return generateXAxisDayGrid(minX,maxX,5);
+    return generateAxisDayGrid(minX,maxX,5);
   }
   if (maxX - minX > 5*24*60*60*1000){
-    return generateXAxisDayGrid(minX,maxX,2);
+    return generateAxisDayGrid(minX,maxX,2);
   }
   if (maxX - minX > 2*24*60*60*1000){
-    return generateXAxisDayGrid(minX,maxX,1);
+    return generateAxisDayGrid(minX,maxX,1);
   }
   if (maxX - minX > 24*60*60*1000){
-    return generateXAxisHourGrid(minX,maxX,12);
+    return generateAxisHourGrid(minX,maxX,12);
   }
   if (maxX - minX > 12*60*60*1000){
-    return generateXAxisHourGrid(minX,maxX,6);
+    return generateAxisHourGrid(minX,maxX,6);
   }
   if (maxX - minX > 6*60*60*1000){
-    return generateXAxisHourGrid(minX,maxX,3);
+    return generateAxisHourGrid(minX,maxX,3);
   }
   if (maxX - minX > 2*60*60*1000){
-    return generateXAxisHourGrid(minX,maxX,1);
+    return generateAxisHourGrid(minX,maxX,1);
   }
   if (maxX - minX > 60*60*1000){
-    return generateXAxisMinuteGrid(minX,maxX,30);
+    return generateAxisMinuteGrid(minX,maxX,30);
   }
   if (maxX - minX > 20*60*1000){
-    return generateXAxisMinuteGrid(minX,maxX,10);
+    return generateAxisMinuteGrid(minX,maxX,10);
   }
   if (maxX - minX > 10*60*1000){
-    return generateXAxisMinuteGrid(minX,maxX,5);
+    return generateAxisMinuteGrid(minX,maxX,5);
   }
   if (maxX - minX > 5*60*1000){
-    return generateXAxisMinuteGrid(minX,maxX,2);
+    return generateAxisMinuteGrid(minX,maxX,2);
   }
   if (maxX - minX > 2*60*1000){
-    return generateXAxisMinuteGrid(minX,maxX,1);
+    return generateAxisMinuteGrid(minX,maxX,1);
   }
   if (maxX - minX > 60*1000){
-    return generateXAxisSecondGrid(minX,maxX,30);
+    return generateAxisSecondGrid(minX,maxX,30);
   }
   if (maxX - minX > 20*1000){
-    return generateXAxisSecondGrid(minX,maxX,10);
+    return generateAxisSecondGrid(minX,maxX,10);
   }
   if (maxX - minX > 10*1000){
-    return generateXAxisSecondGrid(minX,maxX,5);
+    return generateAxisSecondGrid(minX,maxX,5);
   }
   if (maxX - minX > 5*1000){
-    return generateXAxisSecondGrid(minX,maxX,2);
+    return generateAxisSecondGrid(minX,maxX,2);
   }
   if (maxX - minX > 1000){
-    return generateXAxisSecondGrid(minX,maxX,1);
+    return generateAxisSecondGrid(minX,maxX,1);
   }
   return {gridX:[],gridXLabels:[]};
 }
 
 
-function generateXAxisYearGrid(minX,maxX,n=1) {
+function generateAxisYearGrid(minX,maxX,n=1) {
   let ret = {gridX:[],gridXLabels:[]};
   let t = new Date(minX);
   t.setHours(0,0,0,0);
@@ -133,7 +142,7 @@ function generateXAxisYearGrid(minX,maxX,n=1) {
   return ret;
 }
 
-function generateXAxisMonthGrid(minX,maxX,n=1) {
+function generateAxisMonthGrid(minX,maxX,n=1) {
   let ret = {gridX:[],gridXLabels:[]};
   let t = new Date(minX);
   t.setHours(0,0,0,0);
@@ -152,7 +161,7 @@ function generateXAxisMonthGrid(minX,maxX,n=1) {
   return ret;
 }
 
-function generateXAxisDayGrid(minX,maxX,n=1) {
+function generateAxisDayGrid(minX,maxX,n=1) {
   let ret = {gridX:[],gridXLabels:[]};
   let interval = 24*60*60*1000*n;
   let t = new Date(minX);
@@ -170,7 +179,7 @@ function generateXAxisDayGrid(minX,maxX,n=1) {
   return ret;
 }
 
-function generateXAxisHourGrid(minX,maxX,n=1) {
+function generateAxisHourGrid(minX,maxX,n=1) {
   let ret = {gridX:[],gridXLabels:[]};
   let interval = 60*60*1000*n;
   let t = minX-minX%interval;
@@ -184,7 +193,7 @@ function generateXAxisHourGrid(minX,maxX,n=1) {
   return ret;
 }
 
-function generateXAxisMinuteGrid(minX,maxX,n=1) {
+function generateAxisMinuteGrid(minX,maxX,n=1) {
   let ret = {gridX:[],gridXLabels:[]};
   let interval = 60*1000*n;
   let t = minX-minX%interval;
@@ -198,7 +207,7 @@ function generateXAxisMinuteGrid(minX,maxX,n=1) {
   return ret;
 }
 
-function generateXAxisSecondGrid(minX,maxX,n=1) {
+function generateAxisSecondGrid(minX,maxX,n=1) {
   let ret = {gridX:[],gridXLabels:[]};
   let interval = 1000*n;
   let t = minX-minX%interval;
