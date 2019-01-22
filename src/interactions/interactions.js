@@ -14,11 +14,10 @@ function addPlotEventHandlers(canvas,handlers){
   };
 }
 
-function createHighlightEventHandler(plotObj,callbacks=[]) {
+function createHighlightEventHandler(canvas,domX,callbacks=[]) {
   if (!callbacks) {
     return function (ev) {};
   }
-  let {highlightCanvas, domX} = plotObj;
   let ctx = highlightCanvas.getContext("2d");
   let lastIndex = null;
   return function (ev) {

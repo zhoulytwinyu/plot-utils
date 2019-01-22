@@ -1,9 +1,5 @@
-import {applyStyles} from "../utils/canvas-utils";
-
-export function stepLinePlot_single(canvas,domX,domY,style){
+export function stepLinePlot(canvas,domX,domY){
   let ctx = canvas.getContext("2d");
-  ctx.save()
-  applyStyles(ctx,style);
   ctx.beginPath();
   ctx.moveTo(domX[0],domY[0]);
   for (let i=1; i<domX.length; i++) {
@@ -11,13 +7,10 @@ export function stepLinePlot_single(canvas,domX,domY,style){
     ctx.lineTo(domX[i],domY[i]);
   }
   ctx.stroke();
-  ctx.restore();
 }
 
-export function stepFillPlot_single(canvas,domX,domY,YOrigin,style){
+export function stepFillPlot(canvas,domX,domY,YOrigin){
   let ctx = canvas.getContext("2d");
-  ctx.save()
-  applyStyles(ctx,style);
   ctx.beginPath();
   ctx.moveTo(domX[0],YOrigin);
   ctx.lineTo(domX[0],domY[0]);
@@ -31,6 +24,4 @@ export function stepFillPlot_single(canvas,domX,domY,YOrigin,style){
   ctx.lineTo(domX[domX.length-1],YOrigin);
   ctx.closePath();
   ctx.fill();
-  ctx.restore();
 }
-

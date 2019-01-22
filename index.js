@@ -1,30 +1,33 @@
 import {filterData,
         convertDataToDomCoord} from "./src/utils/data-utils";
 
-import {getLinearXCoordinateConverter,
-        getLinearYCoordinateConverter} from "./src/coord-system/linear-coord";
+import {toDomXCoord_Linear,
+        fromDomXCoord_Linear,
+        toDomYCoord_Linear,
+        fromDomYCoord_Linear} from "./src/coordinates";
 
-import {stepLinePlot_single,
-        stepFillPlot_single} from "./src/plotters/step-plot";
+import {stepLinePlot,
+        stepFillPlot} from "./src/plotters/step-plot";
 
-import {drawAxisBorder,
-        drawXAxisOrigin,
-        drawYAxisOrigin} from "./src/utils/canvas-utils";
+import {labelPlot} from "./src/plotters/label-plot";
 
-import {drawXAxisGridLabels,
-        drawYAxisGridLabels,
-        generateAxisGrid,
+import {hLinePlot} from "./src/plotters/hline-plot";
+
+import {vLinePlot} from "./src/plotters/vline-plot";
+
+import {generateAxisGrid,
         generateAxisDateGrid} from "./src/grids";
 
 export {filterData, convertDataToDomCoord,
-        getLinearXCoordinateConverter,
+        toDomXCoord_Linear,
+        fromDomXCoord_Linear,
+        toDomYCoord_Linear,
+        fromDomYCoord_Linear,
         getLinearYCoordinateConverter,
-        stepLinePlot_single,
-        stepFillPlot_single,
-        drawAxisBorder,
-        drawXAxisOrigin,
-        drawYAxisOrigin,
-        drawXAxisGridLabels,
-        drawYAxisGridLabels,
+        stepLinePlot,
+        stepFillPlot,
+        labelPlot,
+        hLinePlot,
+        vLinePlot,
         generateAxisGrid,
         generateAxisDateGrid}

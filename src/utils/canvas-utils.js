@@ -1,15 +1,3 @@
-export function applyStyles(ctx, styleObj) {
-  if ("fillStyle" in styleObj) {
-    ctx.fillStyle = styleObj.fillStyle;
-  }
-  if ("strokeStyle" in styleObj) {
-    ctx.strokeStyle = styleObj.strokeStyle;
-  }
-  if ("lineWidth" in styleObj) {
-    ctx.lineWidth = stylesObj.lineWidth;
-  }
-}
-
 export function drawAxisBorder(canvas,left,bottom,right,top) {
   let ctx = canvas.getContext("2d");
   ctx.save();
