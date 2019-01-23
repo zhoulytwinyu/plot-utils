@@ -1,34 +1,83 @@
-export function scatterPlot(canvas, domX, domY, shape='.', size=1) {
+export function scatterPlot(canvas, domX, domY, options) {
   let ctx = canvas.getContext("2d");
-  let draw = drawDot;
-  for (let i=0; i<domX.length; i++) {
-    let x = domX[i];
-    let y = domY[i];
-    draw(ctx,x,y,size)
+  ctx.save();
+  if (options instanceof Array) {
+    scatterPlot_MultiOptions(ctx, domX, domY, options);
+  }
+  else {
+    scatterPlot_SingleOption(ctx, domX, domY, options);
   }
   ctx.restore();
 }
 
-function drawPlus() {
-  
+function scatterPlot_SingleOption(ctx, domX, domY, option) {
+  let plotter_LUT={"dot":drawDot,"circle":drawCircle,"rectangle":drawRectangle};
+  let plotter=plotter_LUT[option.shape];
+  let opt = {radius:option.radius};
+  let {fillStyle, strokeStyle,lineWidth} = option;
+  if (typeof(fillStyle) !== undefined) {
+    ctx.fillStyle = fillStyle;
+  }
+  if (typeof(strokeStyle) !== undefined) {
+    ctx.strokeStyle = strokeStyle;
+  }
+  if (typeof(lineWidth) !== undefined) {
+    ctx.lineWidth = lineWidth;
+  }
+  for (let i=0; i<domX.length; i++) {
+    let x = domX[i];
+    let y = domY[i];
+    plotter(ctx,x,y,opt);
+  }
+  ctx.restore();
 }
 
-function drawCross() {
-  
+function scatterPlot_MultiOptions(ctx, domX, domY, options) {
+  let plotter_LUT={"dot":drawDot,"circle":drawCircle,"rectangle":drawRectangle};
+  for (let i=0; i<domX.length; i++) {
+    let x = domX[i];
+    let y = domY[i];
+    let opt = options[i];
+    plotter = plotter_LUT[opt.shape];
+    plotter(opt);
+  }
+  ctx.restore();
 }
 
-function drawDot(ctx,x,y,size) {
-  ctx.fillRect(x-Math.floor(size/2),y-Math.floor(size/2),size,size);
+function drawDot(ctx,domX,domY,opt) {
+  let {radius,fillStyle} = opt;
+  ctx.beginPath();
+  if (typeof(fillStyle) !== undefined) {
+    ctx.fillStyle = fillStyle;
+  }
+  ctx.arc(domX,domY,radius,0,2*Math.PI);
+  ctx.fill();
 }
 
-function drawCircle() {
-  
+function drawCircle(ctx,domX,domY,opt) {
+  let {radius,strokeStyle,lineWidth} = opt;
+  ctx.beginPath();
+  if (typeof(strokeStyle) !== undefined) {
+    ctx.strokeStyle = strokeStyle;
+  }
+  if (typeof(lineWidth) !== undefined) {
+    ctx.strokeStyle = lineWidth;
+  }
+  ctx.arc(domX,domY,radius,0,2*Math.PI);
+  ctx.stroke(); 
 }
 
-function drawTriangle() {
-  
-}
-
-function drawRectangle() {
-  
+function drawRectangle(ctx,domX,domY,opt) {
+  let {width,height,fillStyle,strokeStyle,lineWidth} = opt;
+  if (typeof(fillStyle) !== undefined) {
+    ctx.fillStyle = fillStyle;
+  }
+  if (typeof(strokeStyle) !== undefined) {
+    ctx.strokeStyle = strokeStyle;
+  }
+  if (typeof(lineWidth) !== undefined) {
+    ctx.lineWidth = lineWidth;
+  }
+  ctx.fillRect(domX-width/2,domY-height/2,width,height);
+  ctx.strokeRect(domX-width/2,domY-height/2,width,height);
 }

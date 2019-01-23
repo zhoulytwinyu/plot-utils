@@ -17,8 +17,6 @@ import {stepLinePlot,
 
 import {labelPlot} from "./src/plotters/label-plot";
 
-import {shapePlot} from "./src/plotters/shape-plot";
-
 import {vLinePlot} from "./src/plotters/vline-plot";
 
 import {hLinePlot} from "./src/plotters/hline-plot";
@@ -35,6 +33,5 @@ export {filterData,
         stepLinePlot,
         stepFillPlot,
         labelPlot,
-        shapePlot,
         vLinePlot,
         hLinePlot}
