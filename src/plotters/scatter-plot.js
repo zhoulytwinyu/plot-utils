@@ -11,7 +11,7 @@ export function scatterPlot(canvas, domX, domY, options) {
 }
 
 function scatterPlot_SingleOption(ctx, domX, domY, option) {
-  let plotter_LUT={"dot":drawDot,"circle":drawCircle,"rectangle":drawRectangle};
+  let plotter_LUT={"dot":drawDot,"circle":drawCircle,"square":drawSquare,"rectangle":drawRectangle};
   let plotter=plotter_LUT[option.shape];
   let opt = {radius:option.radius};
   let {fillStyle, strokeStyle,lineWidth} = option;
@@ -33,7 +33,7 @@ function scatterPlot_SingleOption(ctx, domX, domY, option) {
 }
 
 function scatterPlot_MultiOptions(ctx, domX, domY, options) {
-  let plotter_LUT={"dot":drawDot,"circle":drawCircle,"rectangle":drawRectangle};
+  let plotter_LUT={"dot":drawDot,"circle":drawCircle,"square":drawSquare,"rectangle":drawRectangle};
   for (let i=0; i<domX.length; i++) {
     let x = domX[i];
     let y = domY[i];
@@ -65,6 +65,21 @@ function drawCircle(ctx,domX,domY,opt) {
   }
   ctx.arc(domX,domY,radius,0,2*Math.PI);
   ctx.stroke(); 
+}
+
+function drawSquare(ctx,domX,domY,opt) {
+  let {width,fillStyle,strokeStyle,lineWidth} = opt;
+  if (typeof(fillStyle) !== undefined) {
+    ctx.fillStyle = fillStyle;
+  }
+  if (typeof(strokeStyle) !== undefined) {
+    ctx.strokeStyle = strokeStyle;
+  }
+  if (typeof(lineWidth) !== undefined) {
+    ctx.lineWidth = lineWidth;
+  }
+  ctx.fillRect(domX-width/2,domY-width/2,width,width);
+  ctx.strokeRect(domX-width/2,domY-width/2,width,width);
 }
 
 function drawRectangle(ctx,domX,domY,opt) {
