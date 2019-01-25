@@ -3,7 +3,8 @@ import {filterData} from "./src/data-handling";
 import {toDomXCoord_Linear,
         fromDomXCoord_Linear,
         toDomYCoord_Linear,
-        fromDomYCoord_Linear} from "./src/coordinates";
+        fromDomYCoord_Linear,
+        toDomCoord_Categorical} from "./src/coordinates";
 
 import {generateAxisGrid,
         generateAxisDateGrid} from "./src/grids";
@@ -26,6 +27,7 @@ export {filterData,
         fromDomXCoord_Linear,
         toDomYCoord_Linear,
         fromDomYCoord_Linear,
+        toDomCoord_Categorical,
         generateAxisGrid,
         generateAxisDateGrid,
         scatterPlot,

@@ -13,15 +13,15 @@ export function scatterPlot(canvas, domX, domY, options) {
 function scatterPlot_SingleOption(ctx, domX, domY, option) {
   let plotter_LUT={"dot":drawDot,"circle":drawCircle,"square":drawSquare,"rectangle":drawRectangle};
   let plotter=plotter_LUT[option.shape];
-  let opt = {radius:option.radius};
+  let opt = option;
   let {fillStyle, strokeStyle,lineWidth} = option;
-  if (typeof(fillStyle) !== undefined) {
+  if (fillStyle !== undefined) {
     ctx.fillStyle = fillStyle;
   }
-  if (typeof(strokeStyle) !== undefined) {
+  if (strokeStyle !== undefined) {
     ctx.strokeStyle = strokeStyle;
   }
-  if (typeof(lineWidth) !== undefined) {
+  if (lineWidth !== undefined) {
     ctx.lineWidth = lineWidth;
   }
   for (let i=0; i<domX.length; i++) {
@@ -39,7 +39,7 @@ function scatterPlot_MultiOptions(ctx, domX, domY, options) {
     let y = domY[i];
     let opt = options[i];
     plotter = plotter_LUT[opt.shape];
-    plotter(opt);
+    plotter(ctx,x,y,opt);
   }
   ctx.restore();
 }

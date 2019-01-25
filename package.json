@@ -6,6 +6,7 @@
   "author": "Lingyu Zhou (zhoulytwin@gmail.com)",
   "license": "GPLV3",
   "dependencies": {
+    "bisect": "zhoulytwinyu/bisect-js",
     "date-fns": "^1.30.1"
   }
 }

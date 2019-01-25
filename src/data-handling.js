@@ -1,4 +1,4 @@
-import {bisect_left, bisect_right} from "./utils/bisect";
+import {bisect_left, bisect_right} from "bisect";
 
 export function filterData(x,ys,minX,maxX) {
   let minInd = Math.max(bisect_left(x,minX),0);
