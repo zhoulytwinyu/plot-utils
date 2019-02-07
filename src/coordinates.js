@@ -10,8 +10,8 @@ export function toDomYCoord_Linear(height,minY,maxY,dataY){
   return height-(dataY-minY)/((maxY-minY)/height);
 }
 
-export function fromDomYCoord_Linear(height,minY,maxY,dataY){
-  return (height-domX)*((maxY-minY)/height) + minY;
+export function fromDomYCoord_Linear(height,minY,maxY,domY){
+  return (height-domY)*((maxY-minY)/height) + minY;
 }
 
 export function toDomCoord_Categorical(name,

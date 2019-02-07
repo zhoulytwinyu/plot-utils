@@ -8,6 +8,8 @@ import {toDomXCoord_Linear,
 
 import {generateAxisGrid,
         generateAxisDateGrid} from "./src/grids";
+        
+import {applyCanvasStyle} from "./src/canvas-utils";
 
 import {scatterPlot} from "./src/plotters/scatter-plot";
 
@@ -30,6 +32,7 @@ export {filterData,
         toDomCoord_Categorical,
         generateAxisGrid,
         generateAxisDateGrid,
+        applyCanvasStyle,
         scatterPlot,
         linePlot,
         stepLinePlot,
