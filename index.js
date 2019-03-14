@@ -1,44 +1,23 @@
-import {filterData} from "./src/data-handling";
+import {getRotatedAxisCoordinate} from "./src/canvas-utils";
 
 import {toDomXCoord_Linear,
         fromDomXCoord_Linear,
         toDomYCoord_Linear,
-        fromDomYCoord_Linear,
-        toDomCoord_Categorical} from "./src/coordinates";
+        fromDomYCoord_Linear} from "./src/coordinate-utils";
 
-import {generateAxisGrid,
-        generateAxisDateGrid} from "./src/grids";
-        
-import {applyCanvasStyle,
-        drawTextInRect} from "./src/canvas-utils";
-
-import {scatterPlot} from "./src/plotters/scatter-plot";
-
-import {linePlot} from "./src/plotters/line-plot";
+import {linePlot} from "./src/plotter-utils/line-plot";
 
 import {stepLinePlot,
-        stepFillPlot} from "./src/plotters/step-plot";
+        stepFillPlot} from "./src/plotter-utils/step-plot";
 
-import {labelPlot} from "./src/plotters/label-plot";
-
-import {vLinePlot} from "./src/plotters/vline-plot";
-
-import {hLinePlot} from "./src/plotters/hline-plot";
-
-export {filterData,
+import {generateDateGrids} from "./src/grid-utils";
+        
+export {getRotatedAxisCoordinate,
+        generateDateGrids,
         toDomXCoord_Linear,
         fromDomXCoord_Linear,
         toDomYCoord_Linear,
         fromDomYCoord_Linear,
-        toDomCoord_Categorical,
-        generateAxisGrid,
-        generateAxisDateGrid,
-        applyCanvasStyle,
-        drawTextInRect,
-        scatterPlot,
         linePlot,
         stepLinePlot,
-        stepFillPlot,
-        labelPlot,
-        vLinePlot,
-        hLinePlot}
+        stepFillPlot};
