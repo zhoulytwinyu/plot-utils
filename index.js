@@ -10,10 +10,12 @@ import {linePlot} from "./src/plotter-utils/line-plot";
 import {stepLinePlot,
         stepFillPlot} from "./src/plotter-utils/step-plot";
 
-import {generateDateGrids} from "./src/grid-utils";
+import {generateDateGrids,
+        generateGrids} from "./src/grid-utils";
         
 export {getRotatedAxisCoordinate,
         generateDateGrids,
+        generateGrids,
         toDomXCoord_Linear,
         fromDomXCoord_Linear,
         toDomYCoord_Linear,
