@@ -2,10 +2,41 @@
   "name": "plot-utils",
   "version": "0.1.0",
   "description": "Assorted plotting functions and utils designed to work in React framework.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "author": "Lingyu Zhou (zhoulytwin@gmail.com)",
-  "license": "GPLV3",
+  "license": "MIT",
   "dependencies": {
     "bisect": "github:zhoulytwinyu/bisect-js"
-  }
+  },
+  "scripts": {
+    "dist": "export NODE_ENV=production && rm -rf dist && mkdir dist && npx babel src --out-dir dist --copy-files"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhoulytwinyu/plot-utils.git"
+  },
+  "keywords": [
+    "plot"
+  ],
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "stage-0"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/zhoulytwinyu/plot-utils/issues"
+  },
+  "homepage": "https://github.com/zhoulytwinyu/plot-utils#readme"
 }
