@@ -235,7 +235,7 @@ function generateYearGrids(rangeMinX, rangeMaxX) {
   var ret = [];
   var t = new Date(rangeMinX);
   t.setHours(0, 0, 0, 0);
-  t.setMonth(0, 0);
+  t.setMonth(0, 1);
   var y = t.getFullYear();
   y = y - y % n;
   t.setFullYear(y);
