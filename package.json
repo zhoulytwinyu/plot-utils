@@ -9,6 +9,7 @@
     "bisect": "github:zhoulytwinyu/bisect-js"
   },
   "scripts": {
+    "install": "npm run dist",
     "dist": "export NODE_ENV=production && rm -rf dist && mkdir dist && npx babel src --out-dir dist --copy-files"
   },
   "repository": {
