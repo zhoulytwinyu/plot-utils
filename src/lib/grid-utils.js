@@ -6,7 +6,6 @@ export function generateGrids(minX,maxX,rangeMinX,rangeMaxX) {
     return {grids,rangeMinX,rangeMaxX};
   }
   // superGrid is expressed as 1*10^n, given diffX = x*10^n
-  diffX = Math.max(0.001,diffX)
   let superGrid = Math.pow(10,Math.floor(Math.log(diffX)/Math.log(10)));
   let interval;
   if (superGrid*2.5>diffX) {

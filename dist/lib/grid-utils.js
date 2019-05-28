@@ -10,6 +10,10 @@ function generateGrids(minX, maxX, rangeMinX, rangeMaxX) {
   var validFromDiff = void 0,
       validToDiff = void 0;
   var diffX = maxX - minX;
+  if (diffX === 0) {
+    return { grids: grids, rangeMinX: rangeMinX, rangeMaxX: rangeMaxX };
+  }
+  // superGrid is expressed as 1*10^n, given diffX = x*10^n
   var superGrid = Math.pow(10, Math.floor(Math.log(diffX) / Math.log(10)));
   var interval = void 0;
   if (superGrid * 2.5 > diffX) {
