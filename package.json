@@ -4,12 +4,11 @@
   "description": "Assorted plotting functions and utils designed to work in React framework.",
   "main": "dist/index.js",
   "author": "Lingyu Zhou (zhoulytwin@gmail.com)",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "dependencies": {
     "bisect": "github:zhoulytwinyu/bisect-js"
   },
   "scripts": {
-    "install": "npm run dist",
     "dist": "export NODE_ENV=production && rm -rf dist && mkdir dist && npx babel src --out-dir dist --copy-files"
   },
   "repository": {
