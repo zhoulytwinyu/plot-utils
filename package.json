@@ -6,7 +6,7 @@
   "author": "Lingyu Zhou (zhoulytwin@gmail.com)",
   "license": "GPL-3.0",
   "dependencies": {
-    "bisect": "github:zhoulytwinyu/bisect-js"
+    "bisect": "github:zhoulytwinyu/bisect-js#v0.1.0"
   },
   "scripts": {
     "dist": "export NODE_ENV=production && rm -rf dist && mkdir dist && npx babel src --out-dir dist --copy-files"

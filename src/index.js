@@ -1,25 +1,23 @@
-import {getRotatedAxisCoordinate} from "./lib/canvas-utils";
+export function toDomXCoord_Linear(width,minX,maxX,dataX){
+  return (dataX-minX)/((maxX-minX)/width);
+}
 
-import {toDomXCoord_Linear,
-        fromDomXCoord_Linear,
-        toDomYCoord_Linear,
-        fromDomYCoord_Linear} from "./lib/coordinate-utils";
+export function fromDomXCoord_Linear(width,minX,maxX,domX){
+  return domX*((maxX-minX)/width) + minX;
+}
 
-import {linePlot} from "./lib/plotter-utils/line-plot";
+export function toDomYCoord_Linear(height,minY,maxY,dataY){
+  return height-(dataY-minY)/((maxY-minY)/height);
+}
 
-import {stepLinePlot,
-        stepFillPlot} from "./lib/plotter-utils/step-plot";
+export function fromDomYCoord_Linear(height,minY,maxY,domY){
+  return (height-domY)*((maxY-minY)/height) + minY;
+}
 
-import {generateDateGrids,
-        generateGrids} from "./lib/grid-utils";
-        
-export {getRotatedAxisCoordinate,
-        generateDateGrids,
-        generateGrids,
-        toDomXCoord_Linear,
-        fromDomXCoord_Linear,
-        toDomYCoord_Linear,
-        fromDomYCoord_Linear,
-        linePlot,
-        stepLinePlot,
-        stepFillPlot};
+export function getRotatedAxisCoordinate(x,y,rotation){
+  let cos = Math.cos(rotation);
+  let sin = Math.sin(rotation);
+  let newX = x*cos+y*sin;
+  let newY = y*cos-x*sin;
+  return {x:newX,y:newY};
+}

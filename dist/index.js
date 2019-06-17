@@ -3,73 +3,35 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-Object.defineProperty(exports, "getRotatedAxisCoordinate", {
-  enumerable: true,
-  get: function get() {
-    return _canvasUtils.getRotatedAxisCoordinate;
-  }
-});
-Object.defineProperty(exports, "toDomXCoord_Linear", {
-  enumerable: true,
-  get: function get() {
-    return _coordinateUtils.toDomXCoord_Linear;
-  }
-});
-Object.defineProperty(exports, "fromDomXCoord_Linear", {
-  enumerable: true,
-  get: function get() {
-    return _coordinateUtils.fromDomXCoord_Linear;
-  }
-});
-Object.defineProperty(exports, "toDomYCoord_Linear", {
-  enumerable: true,
-  get: function get() {
-    return _coordinateUtils.toDomYCoord_Linear;
-  }
-});
-Object.defineProperty(exports, "fromDomYCoord_Linear", {
-  enumerable: true,
-  get: function get() {
-    return _coordinateUtils.fromDomYCoord_Linear;
-  }
-});
-Object.defineProperty(exports, "linePlot", {
-  enumerable: true,
-  get: function get() {
-    return _linePlot.linePlot;
-  }
-});
-Object.defineProperty(exports, "stepLinePlot", {
-  enumerable: true,
-  get: function get() {
-    return _stepPlot.stepLinePlot;
-  }
-});
-Object.defineProperty(exports, "stepFillPlot", {
-  enumerable: true,
-  get: function get() {
-    return _stepPlot.stepFillPlot;
-  }
-});
-Object.defineProperty(exports, "generateDateGrids", {
-  enumerable: true,
-  get: function get() {
-    return _gridUtils.generateDateGrids;
-  }
-});
-Object.defineProperty(exports, "generateGrids", {
-  enumerable: true,
-  get: function get() {
-    return _gridUtils.generateGrids;
-  }
-});
+exports.toDomXCoord_Linear = toDomXCoord_Linear;
+exports.fromDomXCoord_Linear = fromDomXCoord_Linear;
+exports.toDomYCoord_Linear = toDomYCoord_Linear;
+exports.fromDomYCoord_Linear = fromDomYCoord_Linear;
+exports.getRotatedAxisCoordinate = getRotatedAxisCoordinate;
 
-var _canvasUtils = require("./lib/canvas-utils");
+function toDomXCoord_Linear(width, minX, maxX, dataX) {
+  return (dataX - minX) / ((maxX - minX) / width);
+}
 
-var _coordinateUtils = require("./lib/coordinate-utils");
+function fromDomXCoord_Linear(width, minX, maxX, domX) {
+  return domX * ((maxX - minX) / width) + minX;
+}
 
-var _linePlot = require("./lib/plotter-utils/line-plot");
+function toDomYCoord_Linear(height, minY, maxY, dataY) {
+  return height - (dataY - minY) / ((maxY - minY) / height);
+}
 
-var _stepPlot = require("./lib/plotter-utils/step-plot");
+function fromDomYCoord_Linear(height, minY, maxY, domY) {
+  return (height - domY) * ((maxY - minY) / height) + minY;
+}
 
-var _gridUtils = require("./lib/grid-utils");
+function getRotatedAxisCoordinate(x, y, rotation) {
+  var cos = Math.cos(rotation);
+  var sin = Math.sin(rotation);
+  var newX = x * cos + y * sin;
+  var newY = y * cos - x * sin;
+  return {
+    x: newX,
+    y: newY
+  };
+}

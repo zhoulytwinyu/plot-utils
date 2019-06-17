@@ -4,8 +4,12 @@ Fair warning, it is my personal attempt for my personal convinience. It is not l
 
 ## Available functions
 ```
-generateDateGrids(minX,maxX,rangeMinX,rangeMaxX)
-generateGrids(minX,maxX,rangeMinX,rangeMaxX)
+getRotatedAxisCoordinate(x,y,rotation)
+/*
+ * Suppose rotating a plot around upper-left origin.
+ * Where does the point (x,y) on old coordinate system lie on the rotated plot?
+/*
+
 toDomXCoord_Linear(width,minX,maxX,dataX)
 fromDomXCoord_Linear(width,minX,maxX,domX)
 toDomYCoord_Linear(height,minY,maxY,dataY)
