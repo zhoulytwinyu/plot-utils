@@ -4,16 +4,24 @@ Fair warning, it is my personal attempt for my personal convinience. It is not l
 
 ## Available functions
 ```
+// Coordinate utils
 getRotatedAxisCoordinate(x,y,rotation)
 /*
  * Suppose rotating a plot around upper-left origin.
  * Where does the point (x,y) on old coordinate system lie on the rotated plot?
+ * Return {x,y}
 /*
-
 toDomXCoord_Linear(width,minX,maxX,dataX)
 fromDomXCoord_Linear(width,minX,maxX,domX)
 toDomYCoord_Linear(height,minY,maxY,dataY)
 fromDomYCoord_Linear(height,minY,maxY,domY)
+
+// Grid utils
+generateGrids(minX,maxX,rangeMinX,rangeMaxX)
+/*
+ * Return { grids:[], validFromDiff, validToDiff}
+ */
+generateDateGrids(minX,maxX,rangeMinX,rangeMaxX)
 ```
 
 ## design guidelines
